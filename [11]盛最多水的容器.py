@@ -16,7 +16,7 @@
 #  输入：[1,8,6,2,5,4,8,3,7]
 # 输出：49 
 #  Related Topics 数组 双指针 
-#  👍 1627 👎 0
+
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
