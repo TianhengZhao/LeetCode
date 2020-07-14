@@ -19,9 +19,9 @@ class Solution:
         """
         if x < 0:
             return False
-        L = list(str(x))
-        for i in range(ceil(len(L)/2)):
-            if L[i] != L[len(L)-i-1]:
+        ls = list(str(x))
+        for i in range(ceil(len(ls)/2)):
+            if ls[i] != ls[len(ls)-i-1]:
                 return False
         return True
 
@@ -50,8 +50,8 @@ class Solution:
         """
         if x < 0:
             return False
-        L = list(str(x))
-        if L == L[::-1]:
+        ls = list(str(x))
+        if ls == ls[::-1]:
             return True
         else:
             return False
