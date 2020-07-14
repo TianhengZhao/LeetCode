@@ -22,6 +22,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
 
+
 class Solution:
     def removeElement_mine1(self, nums: List[int], val: int) -> int:
         """
@@ -31,7 +32,7 @@ class Solution:
         length = len(nums)
         for i in range(length - 1, -1, -1):
             if nums[i] == val:
-                nums.pop(i)
+                nums.pop(i)   # pop(index)时间复杂度为O（k）
         return len(nums)
 
     def removeElement_other(self, nums: List[int], val: int) -> int:

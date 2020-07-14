@@ -23,7 +23,7 @@ class Solution:
                     return [i, j]
         return []
 
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum_other(self, nums: List[int], target: int) -> List[int]:
         """
         第一次迭代遍历nums中后lengh-1个元素
         第二次判断target - nums[i]是否出现在i之前
@@ -32,7 +32,7 @@ class Solution:
         j = -1
         for i in range(1, lens):
             temp = nums[:i]
-            if (target - nums[i]) in temp:
+            if (target - nums[i]) in temp:   # in的平均时间复杂度为O（n）
                 j = temp.index(target - nums[i])
                 break
         if j >= 0:

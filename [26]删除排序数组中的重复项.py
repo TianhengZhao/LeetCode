@@ -12,6 +12,18 @@ from typing import List
 
 
 class Solution:
+    def removeDuplicates_mine(self, nums: List[int]) -> int:
+        """
+        使用双指针方法
+        时间复杂度O（n）
+        """
+        length = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                nums[length] = nums[i]
+                length += 1
+        return length
+
     def removeDuplicates_other(self, nums: List[int]) -> int:
         """
         从后往前遍历
