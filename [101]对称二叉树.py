@@ -9,7 +9,7 @@
 #   2   2
 #  / \ / \
 # 3  4 4  3
-#  
+#
 #  进阶： 
 # 
 #  你可以运用递归和迭代两种方法解决这个问题吗？ 
@@ -81,4 +81,4 @@ class Solution:
 
 
 
-            # leetcode submit region end(Prohibit modification and deletion)
+# leetcode submit region end(Prohibit modification and deletion)
