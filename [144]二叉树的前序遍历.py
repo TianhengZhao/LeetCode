@@ -27,21 +27,20 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def helper(self, node):
+    def helper(self, node, res):
         if not node:
             return
         else:
             res.append(node.val)
-            self.helper(node.left)
-            self.helper(node.right)
+            self.helper(node.left,res)
+            self.helper(node.right,res)
 
     def preorderTraversal_m1(self, root: TreeNode) -> List[int]:
         """
         递归
         """
-        global res
         res = []
-        self.helper(root)
+        self.helper(root, res)
         return res
 
     def preorderTraversal_m2(self, root: TreeNode) -> List[int]:
