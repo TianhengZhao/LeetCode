@@ -31,16 +31,15 @@ class Solution:
         递归
         """
         res = []
-
-        def inorder(node):
-            if node is None:
-                return
-            inorder(node.left)
-            res.append(node.val)
-            inorder(node.right)
-
-        inorder(root)
+        self.inorder(root, res)
         return res
+
+    def inorder(self, node, res):
+        if node is None:
+            return
+        self.inorder(node.left, res)
+        res.append(node.val)
+        self.inorder(node.right, res)
 
     def inorderTraversal_other(self, root: TreeNode) -> List[int]:
         """
@@ -58,25 +57,6 @@ class Solution:
             p = stack.pop()
             res.append(p.val)
             p = p.right
-        return res
-
-    def inorderTraversal_other1(self, root: TreeNode) -> List[int]:
-        """
-        迭代，效率较低
-        """
-        WHITE, GRAY = 0, 1
-        res = []
-        stack = [(WHITE, root)]
-        while stack:
-            color, node = stack.pop()
-            if node is None:
-                continue
-            if color == WHITE:
-                stack.append((WHITE, node.right))
-                stack.append((GRAY, node))
-                stack.append((WHITE, node.left))
-            else:
-                res.append(node.val)
         return res
 
 # leetcode submit region end(Prohibit modification and deletion)
