@@ -29,21 +29,16 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        def myBuildTree(preorder_left: int, preorder_right: int, inorder_left: int, inorder_right: int):
-            if preorder_left > preorder_right:
+        index = {element: x for x, element in enumerate(inorder)}
+
+        def helper(pre_start, pre_end, in_left, in_right):
+            if pre_start > pre_end:
                 return None
-            preorder_root = preorder_left
-            inorder_root = index[preorder[preorder_root]]
-            root = TreeNode(preorder[preorder_root])
-            size_left_subtree = inorder_root - inorder_left
-            root.left = myBuildTree(preorder_left + 1, preorder_left + size_left_subtree, inorder_left,
-                                    inorder_root - 1)
-            root.right = myBuildTree(preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1,
-                                     inorder_right)
+            root = TreeNode(preorder[pre_start])
+            in_root = index[preorder[pre_start]]
+            root.left = helper(pre_start+1, pre_start+in_root-in_left, in_left, in_root-1)
+            root.right = helper(pre_start+in_root-in_left+1, pre_end, in_root+1, in_right)
             return root
 
-        n = len(preorder)
-        # 得到中序遍历索引表
-        index = {element: i for i, element in enumerate(inorder)}
-        return myBuildTree(0, n - 1, 0, n - 1)
+        return helper(0, len(preorder)-1, 0, len(inorder)-1)
 # leetcode submit region end(Prohibit modification and deletion)
