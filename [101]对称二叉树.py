@@ -30,49 +30,46 @@ class TreeNode:
 
 
 class Solution:
-    """
-    和[100]类似
-    """
-    def isSymmetric_mine1(self, root: TreeNode) -> bool:
-        if root is None:
+
+    def isSymmetric_1(self, root: TreeNode) -> bool:
+        """
+        递归
+        """
+        if not root:
             return True
-        else:
-            def check(node_l, node_r):
-                if node_l is None and node_r is None:
-                    return True
-                if type(node_l) != type(node_r):
-                    return False
-                if node_l.val != node_r.val:
-                    return False
-                else:
-                    return check(node_l.right, node_r.left) and check(node_l.left, node_r.right)
+        return self.is_sym(root.left, root.right)
 
-        return check(root.left, root.right)
-
-    def isSymmetric_mine2(self, root: TreeNode) -> bool:
-        if root is None:
+    def is_sym(self, node1, node2):
+        if not node1 and not node2:
             return True
+        if not node1 or not node2 or node1.val != node2.val:
+            return False
+        return self.is_sym(node1.left, node2.right) and self.is_sym(node1.right, node2.left)
 
-        def check(node_l, node_r):
-            if not node_l and not node_r:
-                return True
-            if type(node_l) != type(node_r):
-                return False
-            if node_l.val != node_r.val:
-                return False
-            else:
-                return True
-
+    def isSymmetric(self, root: TreeNode) -> bool:
+        """
+        迭代，队列
+        """
+        if not root:
+            return True
         deq = deque([(root.left, root.right)])
         while deq:
-            nodes = deq.popleft()
-            if not check(nodes[0], nodes[1]):
+            node_l, node_r = deq.popleft()
+            if not self.check(node_l, node_r):
                 return False
-            # 此时check（）结果为true，两个节点要么均为空，要么不为空值相同
-            if nodes[0]:
-                deq.append((nodes[0].left, nodes[1].right))
-                deq.append((nodes[0].right, nodes[1].left))
+            if node_l:
+                deq.append((node_l.left, node_r.right))
+                deq.append((node_l.right, node_r.left))
         return True
+
+    def check(self, node1, node2):
+        if not node1 and not node2:
+            return True
+        if not node1 or not node2 or node1.val != node2.val:
+            return False
+        return True
+
+
 
 
 
