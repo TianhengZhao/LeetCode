@@ -35,42 +35,23 @@ class TreeNode:
 class Solution:
     def levelOrder_1(self, root: TreeNode) -> List[List[int]]:
         """
-        宽度优先，迭代
+        层次遍历，队列
         """
         if not root:
             return []
-        layer = deque()
-        layer.append(root)
+        que = deque([root])
         res = []
-        while layer:
-            cur_layer = []
-            # 当前队列内所有结点即为该层次所有结点
-            for _ in range(len(layer)):
-                node = layer.popleft()
-                cur_layer.append(node.val)
+        while que:
+            tmp = []
+            for _ in range(len(que)):
+                node = que.popleft()
+                tmp.append(node.val)
                 if node.left:
-                    layer.append(node.left)
+                    que.append(node.left)
                 if node.right:
-                    layer.append(node.right)
-            res.append(cur_layer)
+                    que.append(node.right)
+            res.append(tmp)
         return res
 
-    def levelOrder_2(self, root):
-        """
-        递归
-        """
-        res = []
-        self.level(root, 0, res)
-        return res
-
-    def level(self, root, level, res):
-        if not root:
-            return
-        if len(res) == level:
-            res.append([])
-        res[level].append(root.val)
-        if root.left:
-            self.level(root.left, level + 1, res)
-        if root.right:
-            self.level(root.right, level + 1, res)
+    
 # leetcode submit region end(Prohibit modification and deletion)
