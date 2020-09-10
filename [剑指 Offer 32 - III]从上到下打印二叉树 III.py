@@ -28,7 +28,6 @@
 #  Related Topics 树 广度优先搜索 
 
 
-
 # leetcode submit region begin(Prohibit modification and deletion)
 
 from typing import List
