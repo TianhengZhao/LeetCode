@@ -40,18 +40,18 @@ class Solution:
         self.dfs(root, summ, [], res)
         return res
 
-    def dfs(self, root, total, temp, res):
+    def dfs(self, root, total, path, res):
         if not root:
             return
-        temp.append(root.val)
+        path.append(root.val)
         if not root.left and not root.right and total == root.val:
-            res.append(temp[:])
+            res.append(path[:])
         if root.left:
-            self.dfs(root.left, total-root.val, temp, res)
+            self.dfs(root.left, total-root.val, path, res)
         if root.right:
-            self.dfs(root.right, total-root.val, temp, res)
+            self.dfs(root.right, total-root.val, path, res)
         # 清除自己出现过的痕迹
-        temp.pop()
+        path.pop()
 
 
 
