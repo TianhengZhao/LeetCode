@@ -40,36 +40,15 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLongestSubstring_1(self, s: str) -> int:
+        """双指针，right每次向右移动一个值，left固定在最新的重复值处"""
         hashmap = {}
         res, left = 0, -1
         for right in range(len(s)):
             if s[right] in hashmap:
+                # s[right]可能存在于head左侧，所以取max
                 left = max(hashmap[s[right]], left)
+            # 对于每个right更新一次res
             res = max(res, right - left)
             hashmap[s[right]] = right
         return res
-
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        """
-        i从头遍历字符串
-        tmp存储不含重复字符的子串
-        如果s[i]出现过，删除tmp中从头到s[i]的子串
-        cal为每个子串长度
-        """
-        if len(s) <= 1:
-            return len(s)
-        tmp = [s[0]]
-        res = cal = 1
-        for i in range(1, len(s)):
-            if s[i] in tmp:
-                res = max(cal, res)
-                for j in range(len(tmp)):
-                    if tmp[j] == s[i]:
-                        break
-                del tmp[:j + 1]
-                cal = len(tmp) + 1
-            else:
-                cal += 1
-            tmp.append(s[i])
-        return max(res, cal)
 # leetcode submit region end(Prohibit modification and deletion)
