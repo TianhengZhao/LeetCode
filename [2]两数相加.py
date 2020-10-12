@@ -21,44 +21,22 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers_1(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy = p = ListNode(None)
-        s = 0
-        while l1 or l2 or s:
-            s += (l1.val if l1 else 0) + (l2.val if l2 else 0)
-            p.next = ListNode(s % 10)
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        p1, p2 = l1, l2
+        # 哨兵结点
+        sen = p = ListNode(-1)
+        # 进位标志
+        up = 0
+        # 当p2不为空 或 p1不为空 或 进位不为0时，均继续计算
+        while p1 or p2 or up:
+            tmp = (p1.val if p1 else 0) + (p2.val if p2 else 0) + up
+            # 无论是否有进位，均可模10
+            node = ListNode(tmp % 10)
+            # 用//10判断进位
+            up = tmp // 10
+            p.next = node
             p = p.next
-            s //= 10
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
-        return dummy.next
-
-    def addTwoNumbers_2(self, l1: ListNode, l2: ListNode) -> ListNode:
-        """与1思路相同，复杂写法"""
-        sen = res = ListNode(-1)
-        # 进位
-        sig = 0
-        # 先沿着l1计算
-        while l1:
-            if l2:
-                tol = l1.val + l2.val + sig
-                sig = tol // 10
-                l2 = l2.next
-            else:
-                tol = l1.val + sig
-                sig = tol // 10
-            res.next = ListNode(tol % 10)
-            res = res.next
-            l1 = l1.next
-        # l2长度大于l1
-        while l2:
-            tol = l2.val + sig
-            sig = tol // 10
-            res.next = ListNode(tol % 10)
-            res = res.next
-            l2 = l2.next
-        # l1，l2均结束，但还有进位
-        if sig:
-            res.next = ListNode(1)
+            p1 = p1.next if p1 else None
+            p2 = p2.next if p2 else None
         return sen.next
 # leetcode submit region end(Prohibit modification and deletion)
