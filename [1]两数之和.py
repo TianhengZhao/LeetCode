@@ -23,32 +23,18 @@ class Solution:
                     return [i, j]
         return []
 
-    def twoSum_other(self, nums: List[int], target: int) -> List[int]:
-        """
-        第一次迭代遍历nums中后lengh-1个元素
-        第二次判断target - nums[i]是否出现在i之前
-        """
-        lens = len(nums)
-        j = -1
-        for i in range(1, lens):
-            temp = nums[:i]
-            if (target - nums[i]) in temp:   # in的平均时间复杂度为O（n）
-                j = temp.index(target - nums[i])
-                break
-        if j >= 0:
-            return [j, i]
-
     def twoSum_hashmap(self, nums: List[int], target: int) -> List[int]:
         """
         哈希表
-        在第一次迭代中，将每个元素的值和它的索引添加到哈希表中。
-        在第二次迭代中，判断每个元素所对应的目标元素（target - nums[i]）是否存在于哈希表中。
+        对于每个nums[i]，判断（target - nums[i]）是否存在于哈希表中，若存在，返回
+        否则将nums[i]存入哈希表
         """
         hashmap = {}
-        for i, n in enumerate(nums):
-            if target - n in hashmap:
-                return [hashmap.get(target - n), i]
-            hashmap[n] = i
+        for i in range(len(nums)):
+            if target - nums[i] in hashmap:
+                return [hashmap[target - nums[i]], i]
+            hashmap[nums[i]] = i
+        return []
 
 
         
