@@ -21,33 +21,32 @@ from typing import List
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-
-        def traceback(nums, length, depth, used, path, res):
-            # 递归出口
-            if depth == length:
-                # 注意此处不可res.append(path),最后输出均为[]，因为最后path为[]
-                # 应该做值的拷贝
-                res.append(path[:])
-                return
-            # 每次递归都要遍历一次nums
-            for i in range(len(nums)):
-                # 对于未被访问过的nums[i]
-                if not used[i]:
-                    # 做选择
-                    # 选择该nums[i]为当前路径
-                    used[i] = True
-                    path.append(nums[i])
-                    # 向下一深度递归
-                    traceback(nums, length, depth + 1, used, path, res)
-                    # 回溯，撤销选择
-                    used[i] = False
-                    path.pop()
-
         length = len(nums)
         if not length:
             return []
         used = [False for _ in range(length)]
-        res = []
-        traceback(nums, length, 0, used, [], res)
-        return res
+        self.res = []
+        self.backtrack(nums, length, 0, used, [])
+        return self.res
+
+    def backtrack(self, nums, length, depth, used, path):
+        # 递归出口
+        if depth == length:
+            # 注意此处不可res.append(path),最后输出均为[]，因为最后path为[]
+            # 应该做值的拷贝
+            self.res.append(path[:])
+            return
+        # 每次递归都要遍历一次nums
+        for i in range(length):
+            # 对于未被访问过的nums[i]
+            if not used[i]:
+                # 做选择
+                # 选择该nums[i]为当前路径
+                used[i] = True
+                path.append(nums[i])
+                # 向下一深度递归
+                self.backtrack(nums, length, depth + 1, used, path)
+                # 回溯，撤销选择
+                used[i] = False
+                path.pop()
 # leetcode submit region end(Prohibit modification and deletion)
