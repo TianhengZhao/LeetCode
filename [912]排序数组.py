@@ -79,7 +79,7 @@ class Solution:
         length = len(nums)
         # 建堆
         for i in range(length // 2, -1, -1):
-            self.sink(nums, i, n)
+            self.sink(nums, i, length)
         # 将最大值和堆最右下元素交换后，重新排序
         for i in range(length - 1, -1, -1):
             nums[0], nums[i] = nums[i], nums[0]
