@@ -49,7 +49,10 @@ from typing import List
 
 
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
+    def numIslandsAns(self, grid: List[List[str]]) -> int:
+        """
+        bfs
+        """
         # m行n列的矩阵
         m, n = len(grid), len(grid[0])
         # 岛屿个数
@@ -58,7 +61,7 @@ class Solution:
         neigh = deque()
         for i in range(m):
             for j in range(n):
-                # 进入一个岛屿区域
+                # 进入一个岛屿区域，将该岛屿区域所有1化为0，下一次进入此if就是下一个岛屿
                 if grid[i][j] == '1':
                     res += 1
                     grid[i][j] = '0'
@@ -72,4 +75,25 @@ class Solution:
                                 neigh.append([x, y])
                                 grid[x][y] = '0'
         return res
+
+    def numIslandsAns2(self, grid: List[List[str]]) -> int:
+        """
+        递归dfs
+        找到岛屿起始位置，从起始位置开始dfs把相邻1都置0即可
+        """
+        m, n = len(grid), len(grid[0])
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    res += 1
+                    self.dfs(grid, i, j)
+        return res
+
+    def dfs(self, grid, row, col):
+        m, n = len(grid), len(grid[0])
+        grid[row][col] = '0'
+        for x, y in [[row + 1, col], [row, col - 1], [row - 1, col], [row, col + 1]]:
+            if 0 <= x < m and 0 <= y < n and grid[x][y] == '1':
+                self.dfs(grid, x, y)
 # leetcode submit region end(Prohibit modification and deletion)
