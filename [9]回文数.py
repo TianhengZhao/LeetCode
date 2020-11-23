@@ -12,61 +12,42 @@ from math import ceil
 
 
 class Solution:
-    def isPalindrome_mine1(self, x: int) -> bool:
+    def isPalindrome1(self, x: int) -> bool:
         """
         转换成字符串
-        用一个列表前一半和后一半对比
+        头尾两个指针作比较
         """
         if x < 0:
             return False
-        ls = list(str(x))
-        for i in range(ceil(len(ls)/2)):
+        ls = str(x)
+        for i in range(len(ls) // 2):
             if ls[i] != ls[len(ls)-i-1]:
                 return False
         return True
 
-    def isPalindrome_mine2(self, x: int) -> bool:
+    def isPalindrome2(self, x: int) -> bool:
         """
         整数反转，数学方法
         不用转换成字符串的方法
         """
         if x < 0:
             return False
-        res = 0
-        y = x
+        res, y = 0, x
         while y != 0:
             res = 10 * res + y % 10
             y //= 10
-        if res == x:
-            return True
-        else:
-            return False
+        return True if res == x else False
 
-    def isPalindrome_mine3(self, x: int) -> bool:
+    def isPalindrome3(self, x: int) -> bool:
         """
         转换成字符串
         列表逆序后与原列表对比
-        效率最高
         """
         if x < 0:
             return False
-        ls = list(str(x))
-        if ls == ls[::-1]:
-            return True
-        else:
-            return False
+        ls = str(x)
+        return True if ls == ls[::-1] else False
 
-    def isPalindrome_others(self, x: int) -> bool:
-        """
-        转化成字符串，翻转后比较
-        """
-        if x < 0:
-            return False
-        else:
-            y = str(x)[::-1]
-            if y == str(x):
-                return True
-            else:
-                return False
+
 
 # leetcode submit region end(Prohibit modification and deletion)
