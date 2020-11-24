@@ -24,6 +24,7 @@ class Solution:
         dp = [[False] * length for _ in range(length)]
         left, right = 0, 0
         # 矩阵上三角去掉对角线部分
+        # 从左往右一列一列地看；若是按行看，需要从下往上，否则dp[i + 1][j - 1]会取得错误值
         for j in range(1, length):
             for i in range(j):
                 # 边界，子串长度为2或3，只需比较首末两字符
@@ -39,28 +40,4 @@ class Solution:
         # 如果没有回文串，返回s第一个字符，left, right = 0, 0
         return s[left: right + 1]
 
-    def longestPalindrome_(self, s: str) -> str:
-        """超时了"""
-        hashmap = {s[0]: [0]}
-        res = ''
-        flag = True
-        for i in range(1, len(s)):
-            if s[i] in hashmap:
-                for j in hashmap[s[i]]:
-                    left = j
-                    right = i
-                    while left <= right:
-                        if s[left] != s[right]:
-                            flag = False
-                            break
-                        left += 1
-                        right -= 1
-                    if flag:
-                        if i - j + 1 > len(res):
-                            res = s[j:i + 1]
-                    flag = True
-                hashmap[s[i]].append(i)
-            else:
-                hashmap[s[i]] = [i]
-        return res if res else s[0]
 # leetcode submit region end(Prohibit modification and deletion)
