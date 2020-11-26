@@ -30,12 +30,11 @@ class Solution:
     def helper(self, node, res):
         if not node:
             return
-        else:
-            res.append(node.val)
-            self.helper(node.left,res)
-            self.helper(node.right,res)
+        res.append(node.val)
+        self.helper(node.left,res)
+        self.helper(node.right,res)
 
-    def preorderTraversal_m1(self, root: TreeNode) -> List[int]:
+    def preorderTraversal1(self, root: TreeNode) -> List[int]:
         """
         递归
         """
@@ -43,7 +42,7 @@ class Solution:
         self.helper(root, res)
         return res
 
-    def preorderTraversal_m2(self, root: TreeNode) -> List[int]:
+    def preorderTraversal2(self, root: TreeNode) -> List[int]:
         """
         迭代
         """
