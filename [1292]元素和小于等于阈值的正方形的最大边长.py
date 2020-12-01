@@ -7,27 +7,7 @@
 # 
 #  输入：mat = [[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], threshold = 4
 # 输出：2
-# 解释：总和小于 4 的正方形的最大边长为 2，如图所示。
-#  
-# 
-#  示例 2： 
-# 
-#  输入：mat = [[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]], thres
-# hold = 1
-# 输出：0
-#  
-# 
-#  示例 3： 
-# 
-#  输入：mat = [[1,1,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0]], threshold = 6
-# 输出：3
-#  
-# 
-#  示例 4： 
-# 
-#  输入：mat = [[18,70],[61,1],[25,85],[14,40],[11,96],[97,96],[63,45]], threshold 
-# = 40184
-# 输出：2
+# 解释：总和小于 4 的正方形的最大边长为 2
 #
 #  1 <= m, n <= 300 
 #  m == mat.length 
@@ -77,10 +57,9 @@ class Solution:
             mid = (left + right) // 2
             # 记录该边长是否有元素和 <= threshold的情况
             flag = False
-            # *** 这个m,n,mid,i,j关系改了好久
-            for i in range(1, m - mid + 2):
-                for j in range(1, n - mid + 2):
-                    tmp = dp[i + mid - 1][j + mid - 1] - dp[i + mid - 1][j - 1] - dp[i - 1][j + mid - 1] + dp[i - 1][j - 1]
+            for i in range(mid, m + 1):
+                for j in range(mid, n + 1):
+                    tmp = dp[i][j] - dp[i - mid][j] - dp[i][j - mid] + dp[i - mid][j - mid]
                     if tmp <= threshold:
                         flag = True
             # 当前边长满足条件，是否有更大边长
