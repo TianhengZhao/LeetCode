@@ -25,8 +25,9 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
-    def inorderTraversal_mine(self, root: TreeNode) -> List[int]:
+    def inorderTraversal1(self, root: TreeNode) -> List[int]:
         """
         递归
         """
@@ -35,28 +36,27 @@ class Solution:
         return res
 
     def inorder(self, node, res):
-        if node is None:
+        if not node:
             return
         self.inorder(node.left, res)
         res.append(node.val)
         self.inorder(node.right, res)
 
-    def inorderTraversal_other(self, root: TreeNode) -> List[int]:
+    def inorderTraversal2(self, root: TreeNode) -> List[int]:
         """
         迭代，效率较高
         """
-        res = []
-        stack = []
-        p = root
+        res, stack, p = [], [], root
         # 同时判断p和stack是否为空
         while p or stack:
+            # 最左
             while p:
                 stack.append(p)
                 p = p.left
             # 若p为空 直接执行此处
-            p = stack.pop()
-            res.append(p.val)
-            p = p.right
+            node = stack.pop()
+            res.append(node.val)
+            p = node.right
         return res
 
 # leetcode submit region end(Prohibit modification and deletion)
