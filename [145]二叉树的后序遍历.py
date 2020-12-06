@@ -31,7 +31,7 @@ class Solution:
         self.helper(node.right, res)
         res.append(node.val)
 
-    def postorderTraversal_m(self, root: TreeNode) -> List[int]:
+    def postorderTraversal1(self, root: TreeNode) -> List[int]:
         """
         递归
         """
@@ -39,46 +39,45 @@ class Solution:
         self.helper(root, res)
         return res
 
-    def postorderTraversal_1(self, root: TreeNode) -> List[int]:
+    def postorderTraversal2(self, root: TreeNode) -> List[int]:
         """
         迭代
         自顶向下，按照root，right，left顺序出栈
         对结果倒序即为后根遍历的结果，自底向上，left，right，root
         """
-        if root is None:
+        if not root:
             return []
-
-        stack, output = [root, ], []
+        stack, res = [root], []
         while stack:
-            root = stack.pop()
-            output.append(root.val)
-            if root.left:
-                stack.append(root.left)
-            if root.right:
-                stack.append(root.right)
-
-        return output[::-1]
-
-    def postorderTraversal_2(self, root: TreeNode) -> List[int]:
-        """
-        *正常思路后根遍历
-        """
-        res = []
-        stack = []
-        node = root
-        while stack or node:
-            # 获得最左叶子结点
-            while node:
-                stack.append(node)
-                node = node.left if node.left else node.right
+            # 弹出node，将node的左右子节点入栈
             node = stack.pop()
             res.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return res[::-1]
+
+    def postorderTraversal3(self, root: TreeNode) -> List[int]:
+        """
+        迭代
+        """
+        res, stack, p = [], [], root
+        while stack or p:
+            # 获得最左叶子结点
+            while p:
+                stack.append(p)
+                # 如果p没有左子节点了，p指向其右子节点，继续找最左结点
+                p = p.left if p.left else p.right
+            node = stack.pop()
+            res.append(node.val)
+            # 如果node为其父节点的左子节点
             if stack and stack[-1].left == node:
                 # 从node父节点的右子节点开始遍历
-                node = stack[-1].right
+                p = stack[-1].right
             else:
                 # 若栈不为空，继续弹栈
-                node = None
+                p = None
         return res
 
 # leetcode submit region end(Prohibit modification and deletion)
