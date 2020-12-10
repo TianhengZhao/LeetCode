@@ -54,19 +54,17 @@ class Solution:
 
     def kthLargest_ans(self, root: TreeNode, k: int) -> int:
         """逆向中根遍历"""
-        def dfs(root):
-            if not root:
-                return
-            dfs(root.right)
-            if self.k == 0:
-                return
-            self.k -= 1
-            if self.k == 0:
-                self.res = root.val
-            dfs(root.left)
-
-        self.k = k
-        dfs(root)
-        return self.res
+        stack, node = [], root
+        while node or stack:
+            if node:
+                stack.append(node)
+                node = node.right
+            else:
+                cur = stack.pop()
+                k -= 1
+                if not k:
+                    return cur.val
+                if cur.left:
+                    node = cur.left
 
 # leetcode submit region end(Prohibit modification and deletion)
