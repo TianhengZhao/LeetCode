@@ -27,23 +27,23 @@ class TreeNode:
 
 class Solution:
 
-    def maxDepth_1(self, root: TreeNode) -> int:
+    def maxDepth(self, root: TreeNode) -> int:
         """
         自顶向下
         """
-        def top_down(node, h):
-            if node is None:
-                return h
-            else:
-                return max(top_down(node.left, h + 1), top_down(node.right, h + 1))
+        return self.top_down(root, 0)
 
-        return top_down(root, 0)
+    def top_down(self, node, h):
+        if not node:
+            return h
+        else:
+            return max(self.top_down(node.left, h + 1), self.top_down(node.right, h + 1))
 
-    def maxDepth_2(self, root):
+    def maxDepth2(self, root):
         """
         自底向上
         """
         if not root:
             return 0
-        return max(self.maxDepth_2(root.left), self.maxDepth_2(root.right)) + 1
+        return max(self.maxDepth2(root.left), self.maxDepth2(root.right)) + 1
 # leetcode submit region end(Prohibit modification and deletion)
