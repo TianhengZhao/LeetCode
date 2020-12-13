@@ -30,28 +30,15 @@ from typing import List
 
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
+    def maxSubArray1(self, nums: List[int]) -> int:
         """
         dp[i]中存储 以nums[i]为最后一个元素 的连续数组的最大和
         """
-        dp = []
         # basecase
-        dp.append(nums[0])
+        res = dp = nums[0]
         for i in range(1, len(nums)):
-            # 状态转移方程. dp[i-1] < 0，会使nums[i]变小，因此dp[i]=nums[i]
-            if dp[i - 1] < 0:
-                dp.append(nums[i])
-            # 状态转移方程.
-            else:
-                dp.append(nums[i] + dp[i - 1])
-        # 返回最大和
-        return max(dp)
-
-    def maxSubArray_ans(self, nums: List[int]) -> int:
-        """直接将计算结果存在nums中198"""
-        for i in range(1, len(nums)):
-            nums[i] += max(nums[i - 1], 0)
-        return max(nums)
-
+            dp = max(nums[i], nums[i] + dp)
+            res = max(dp, res)
+        return res
 
 # leetcode submit region end(Prohibit modification and deletion)

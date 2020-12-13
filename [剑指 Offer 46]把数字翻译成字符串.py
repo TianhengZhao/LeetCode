@@ -20,20 +20,18 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def translateNum(self, num: int) -> int:
-        if num < 10:
-            return 1
         num_str = str(num)
         # basecase
-        tmp1, tmp2 = 1, 1
+        tmp0, tmp1 = 1, 1
         for i in range(1, len(num_str)):
             cur = int(num_str[i - 1:i + 1])
-            # 判断条件看前一数和当前数是否在[10,25]间
+            # 看前一数和当前数是否在[10,25]间
             if 10 <= cur <= 25:
-                # 转移方程1
-                tmp1, tmp2 = tmp2, tmp1 + tmp2
+                # cur可以翻译为字符，当前tmp为前两tmp的和
+                tmp0, tmp1 = tmp1, tmp0 + tmp1
             else:
-                # 转移方程2
-                tmp1 = tmp2
-        return tmp2
+                # cur不能翻译为字符，和前一tmp数量相同
+                tmp0 = tmp1
+        return tmp1
 
 # leetcode submit region end(Prohibit modification and deletion)
