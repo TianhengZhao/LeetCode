@@ -30,16 +30,12 @@ from typing import List
 class Solution:
     def maxValue(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        dp = [[0] * n] * m
+        # 优化了空间，棋盘中对应位置的礼物最大值
+        dp = [0] * n
         for i in range(m):
-            for j in range(n):
-                if i == 0 and j == 0:
-                    dp[i][j] = grid[i][j]
-                elif i == 0:
-                    dp[i][j] = dp[i][j - 1] + grid[i][j]
-                elif j == 0:
-                    dp[i][j] = dp[i - 1][j] + grid[i][j]
-                else:
-                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
-        return dp[m - 1][n - 1]
+            # 初始化，每行第一列礼物价值
+            dp[0] += grid[i][0]
+            for j in range(1, n):
+                dp[j] = grid[i][j] + max(dp[j], dp[j - 1])
+        return dp[-1]
 # leetcode submit region end(Prohibit modification and deletion)
