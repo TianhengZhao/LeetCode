@@ -74,7 +74,7 @@ class Solution:
         self.quick(nums, right + 1, right_p)
         return nums
 
-    def heapArray(self, nums):
+    def heapSort(self, nums):
         """堆排序 O（nlogn）"""
         length = len(nums)
         # 建堆
@@ -108,5 +108,42 @@ class Solution:
                 # 父节点都比子节点大，已成为大根堆
                 break
         nums[pos] = target
+
+    def bubbleSort(self, nums):
+        """冒泡排序 O（n^2） 超时"""
+        for end in range(len(nums) - 1, 0, -1):
+            flag = False
+            for cal in range(end):
+                if nums[cal] > nums[cal + 1]:
+                    flag = True
+                    nums[cal], nums[cal + 1] = nums[cal + 1], nums[cal]
+            if not flag:
+                return nums
+        return nums
+
+    def selectionSort(self, nums):
+        """选择排序 O（n^2） 超时"""
+        length = len(nums)
+        for pos in range(length):
+            min_val = max(nums) + 1
+            idx = 0
+            for cal in range(pos, length, 1):
+                if nums[cal] < min_val:
+                    min_val = nums[cal]
+                    idx = cal
+            nums[pos], nums[idx] = nums[idx], nums[pos]
+        return nums
+
+    def insertionSort(self, nums):
+        """插入排序 O（n^2） 超时"""
+        for pivot in range(1, len(nums)):
+            pos = pivot
+            while pos > 0:
+                if nums[pos] < nums[pos - 1]:
+                    nums[pos], nums[pos - 1] = nums[pos - 1], nums[pos]
+                    pos -= 1
+                else:
+                    break
+        return nums
 
 # leetcode submit region end(Prohibit modification and deletion)
